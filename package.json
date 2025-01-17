@@ -1,5 +1,5 @@
 {
-  "name": "svg-icons-tools",
+  "name": "@massimo-cassandro/svg-icons-tools",
   "version": "0.1.0",
   "description": "Optimize svg iocns (with SVGO) and generate SVG symbols file, JSX etc.",
   "main": "index.mjs",
@@ -33,6 +33,10 @@
     "node": ">= 22.0.0",
     "npm": ">= 10.8.0"
   },
+  "files": [
+    "src/**/*.{mjs,html}",
+    "index.mjs"
+  ],
   "devDependencies": {
     "@eslint/js": "^9.9.1",
     "@massimo-cassandro/dev-updater": "^1.0.4",
