@@ -1,0 +1,48 @@
+{
+  "name": "svg-icons-tools",
+  "version": "0.1.0",
+  "description": "Optimize svg iocns (with SVGO) and generate SBG symbols file, JSX etc.",
+  "main": "index.mjs",
+  "bin": {
+    "iconsTools": "./index.mjs"
+  },
+  "scripts": {
+    "demo run": "rm -rf ./demo/demo-output && node ./index.mjs --config ./demo/svg-icons-tools.config.mjs",
+    "demo init": "rm -rf ./svg-icons-tools && node ./index.mjs init",
+    "update-version": "npx update-version",
+    "npm-publish": "npm publish"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/massimo-cassandro/svg-icons-tools.git"
+  },
+  "keywords": [
+    "svg",
+    "icons"
+  ],
+  "author": "Massimo Cassandro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/massimo-cassandro/svg-icons-tools/issues"
+  },
+  "homepage": "https://github.com/massimo-cassandro/svg-icons-tools#readme",
+  "engines": {
+    "node": ">= 22.0.0",
+    "npm": ">= 10.8.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.1",
+    "@massimo-cassandro/dev-updater": "^1.0.4",
+    "@massimo-cassandro/eslint-config": "^2.0.4",
+    "eslint": "^9.17.0",
+    "globals": "^15.14.0",
+    "jsdoc-to-markdown": "^9.1.1"
+  },
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "svgo": "^3.3.2"
+  }
+}
