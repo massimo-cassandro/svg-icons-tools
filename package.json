@@ -1,7 +1,7 @@
 {
   "name": "svg-icons-tools",
   "version": "0.1.0",
-  "description": "Optimize svg iocns (with SVGO) and generate SBG symbols file, JSX etc.",
+  "description": "Optimize svg iocns (with SVGO) and generate SVG symbols file, JSX etc.",
   "main": "index.mjs",
   "bin": {
     "iconsTools": "./index.mjs"
