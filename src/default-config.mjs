@@ -343,6 +343,9 @@ const config = {
      */
     files: [],
 
+    /* string to be prefixed to the variable names */
+    varname_prefix: 'icon-',
+
     /* if true, the svg files are converted to data urls */
     convert_to_css_url: true,
 

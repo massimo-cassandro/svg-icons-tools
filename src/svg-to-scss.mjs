@@ -38,7 +38,7 @@ export function svg_to_scss() {
         }
 
 
-        svg_to_scss_array.push(`$${filename}: ${svg_string};`);
+        svg_to_scss_array.push(`$${cfg.svg_to_scss?.varname_prefix?? ''}${filename}: ${svg_string};`);
 
         fileCount++;
 
