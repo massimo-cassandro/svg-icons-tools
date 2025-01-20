@@ -35,12 +35,6 @@ const config = {
     },
 
     /**
-     * Optional prefix/suffix to be added to the icon names
-     */
-    add_prefix: '',
-    add_suffix: 'Icon',
-
-    /**
      * Function to create each JSX icon file
      *
      * Change it as you like. The `parsed_svg` argument is the object returned by the parse function
@@ -50,6 +44,7 @@ const config = {
      *  - svg_content: the optimized svg markup without the svg tag)
      *  - classes: the aspect ratio class as per the `non_square_icons_classes` parameter and or
      *             the 'fill` or `stroke` class as per the `icon_type_class` parameter
+     *  - icon_type: icon type string: `fill` or `stroke`
      *  - filename: the name of the svg file without extension and with the `remove_prefix` strings removed
      *  - filename_camel_case: the filename in camel case (nb: dashes follewed ny numbers are converted to underscores)
      *
@@ -68,7 +63,9 @@ const config = {
      * NB: this release doesn't include any prettify feature.
      */
     icon_builder: function (parsed_svg) {
-      const component_name = `${this.add_prefix?? ''}${parsed_svg.filename_camel_case}${this.add_suffix?? ''}`;
+
+      // adding `Icon` suffix to the component name
+      const component_name = `${parsed_svg.filename_camel_case}Icon`;
 
       return {
         component_name: component_name,

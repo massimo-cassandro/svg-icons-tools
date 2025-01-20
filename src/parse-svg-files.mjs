@@ -23,9 +23,8 @@ export function parseSvgFiles(parseModeKey, callback) {
         if(file.endsWith('.svg')) {
 
           fileCount++;
-          const icon_type_class = svgType? cfg.icon_type_class?.[svgType]?? null : null
-            ,filepath = path.resolve(folder, file),
-            parsedSvg = parseSvgMarkup(filepath, icon_type_class);
+          const filepath = path.resolve(folder, file),
+            parsedSvg = parseSvgMarkup(filepath, svgType);
 
           parsedSvg.filename = parseSvgFilename(file);
           parsedSvg.filename_camel_case = parsedSvg.filename
