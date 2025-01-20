@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import { configManager } from './config-manager.mjs';
 import { parseSvgMarkup } from './parse-svg-markup.mjs';
 import { parseSvgFilename } from './parse-svg-filename.mjs';
-import { printLine, printError } from './print-result.mjs';
+import { printResult } from './print-result.mjs';
 import { homedir_path_to_tilde } from './homedir-path-to-tilde.mjs';
 
 export function svg_to_scss() {
@@ -54,15 +54,15 @@ export function svg_to_scss() {
 
     fs.writeFileSync(dest, svg_to_scss_array.join('\n'));
 
-    printLine(`\nSVG to scss variables: ${fileCount} SVG files processed`);
-    printLine(`\SCSS icons variables file saved to ${homedir_path_to_tilde(dest)}`, true);
+    printResult(`\nSVG to scss variables: ${fileCount} SVG files processed`);
+    printResult(`\SCSS icons variables file saved to ${homedir_path_to_tilde(dest)}`, 'infoDim');
     if(skipped) {
-      printError( `SVG to scss variables: ${skipped} SVG file${skipped > 1? 's were' : ' was'} not found`, true );
+      printResult( `SVG to scss variables: ${skipped} SVG file${skipped > 1? 's were' : ' was'} not found`, 'warning' );
     }
 
   } else {
 
-    printLine('SVG to scss variables: no files processed', true);
+    printResult('SVG to scss variables: no files processed', 'infoDim');
   }
 
 }

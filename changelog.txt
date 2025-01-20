@@ -1,1 +1,2 @@
 2025-01-17T16:47:09.593Z |            0.1.0 | First release
+2025-01-19T21:02:45.583Z |            0.2.0 | Added Fill & stroke classes to SVG symbol, various fixes, removed Chalkjs

@@ -53,3 +53,7 @@ See [src/default-config.mjs](src/default-config.mjs) for more info.
 
 See [demo/readme](demo/readme.md).
 
+## TODO
+* documentation to jsdoc
+* prettify the jsx output (update docs)
+* SVG to jsx (upd doc)

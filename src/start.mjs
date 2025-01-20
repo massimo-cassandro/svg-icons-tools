@@ -5,19 +5,19 @@ import { svg_to_scss } from './svg-to-scss.mjs';
 // import * as fs from 'fs';
 // import { configManager } from './config-manager.mjs';
 
-import { printLine, printSuccess } from './print-result.mjs';
+import { printResult } from './print-result.mjs';
 
 export function start() {
 
 
-  printLine('SVG-ICONS-TOOLS start...');
+  printResult('SVG-ICONS-TOOLS start...');
 
   svg_to_jsx();
   svg_to_optimized();
   svg_to_symbols();
   svg_to_scss();
 
-  printSuccess('SVG-ICONS-TOOLS end');
+  printResult('SVG-ICONS-TOOLS end', 'success');
 
 
 }

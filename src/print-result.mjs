@@ -1,21 +1,26 @@
 /* eslint-disable no-console */
-import chalk from 'chalk';
+import { styleText } from 'node:util';
+import { configManager } from './config-manager.mjs';
 
-// https://github.com/chalk/chalk
-export function printError(text, as_line = false) {
-  if(as_line) {
-    console.error(chalk.red(text));
 
-  } else {
-    console.error(chalk.bgRed(`\n ${text} \n`));
+// https://developer.mozilla.org/en-US/docs/Web/API/console#styling_console_output
+// https://nodejs.org/api/util.html#customizing-utilinspect-colors
+
+export function printResult(text, mode = 'info') {
+  const cfg = configManager.getCfg()
+    ,style = typeof cfg.console_colors[mode] === 'string'? [cfg.console_colors[mode]] : cfg.console_colors[mode]
+    ,isBg = style.reduce((acc, val) => acc || /^(bg)/.test(val), false)
+  ;
+
+  if(isBg) {
+    text = ` ${text} `;
   }
 
-}
+  let message = styleText(cfg.console_colors[mode], text);
 
-export function printSuccess(text) {
-  console.error(chalk.bgGreen(`\n ${text} \n`));
-}
+  if(isBg) {
+    message = `\n${message}\n`;
+  }
 
-export function printLine(text, dim = false) {
-  console.error(dim? chalk.yellow.dim(text) : chalk.yellow(text));
+  console.log( message);
 }

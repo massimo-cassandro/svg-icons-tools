@@ -2,7 +2,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { configManager } from './config-manager.mjs';
 import { parseSvgFiles } from './parse-svg-files.mjs';
-import { printLine } from './print-result.mjs';
+import { printResult } from './print-result.mjs';
 import { homedir_path_to_tilde } from './homedir-path-to-tilde.mjs';
 
 
@@ -54,21 +54,21 @@ export function svg_to_jsx() {
     }
 
     if(fileCount) {
-      printLine(`\nSVG to JSX: ${fileCount} SVG files processed`);
-      printLine(`JSX files saved to ${homedir_path_to_tilde(dest_folder)}`, true);
+      printResult(`\nSVG to JSX: ${fileCount} SVG files processed`);
+      printResult(`JSX files saved to ${homedir_path_to_tilde(dest_folder)}`, 'infoDim');
 
       if(index_file_path) {
-        printLine(`Index file saved to ${homedir_path_to_tilde(index_file_path)}`, true);
+        printResult(`Index file saved to ${homedir_path_to_tilde(index_file_path)}`, 'infoDim');
 
       } else {
-        printLine('Index file has not been created', true);
+        printResult('Index file has not been created', 'infoDim');
       }
 
     } else {
-      printLine('\nSVG to JSX: no files processed', true);
+      printResult('\nSVG to JSX: no files processed', 'infoDim');
     }
 
   } else {
-    printLine('\nSVG to JSX: no files processed', true);
+    printResult('\nSVG to JSX: no files processed', 'infoDim');
   }
 }

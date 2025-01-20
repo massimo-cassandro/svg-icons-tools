@@ -30,19 +30,8 @@ const config = {
      * If you don't need this feature, just remove the whole `jsx` object
      */
     source_folders: {
-      fill: ['svg-src-fill'],
-      stroke: ['svg-src-stroke']
-    },
-
-    /**
-     * Icon type classes
-     *
-     * Optional classes to be added to fill and or stroke icons
-     * leave empty or remove if you don't need them
-     */
-    icon_type_class: {
-      fill: 'fill-icon',
-      stroke: 'stroke-icon'
+      fill: ['./svg-sources/fill-icons', './svg-sources/no-square-icons'],
+      stroke: ['./svg-sources/stroke-icons']
     },
 
     /**
@@ -58,9 +47,9 @@ const config = {
      * and contains:
      *  - svg: the whole optimized svg markup (including the svg tag),
      *  - viewbox: the viewbox attribute content,
-     *  - content: the optimized svg markup without the svg tag)
-     *  - aspect_ratio_class: the aspect ratio class as per the `non_square_icons_classes` parameter
-     *  - type_class: the 'fill` or `stroke` class as per the `icon_type_class` parameter
+     *  - svg_content: the optimized svg markup without the svg tag)
+     *  - classes: the aspect ratio class as per the `non_square_icons_classes` parameter and or
+     *             the 'fill` or `stroke` class as per the `icon_type_class` parameter
      *  - filename: the name of the svg file without extension and with the `remove_prefix` strings removed
      *  - filename_camel_case: the filename in camel case (nb: dashes follewed ny numbers are converted to underscores)
      *
@@ -75,23 +64,21 @@ const config = {
      * that `parsed_svg.content` is valid JSX markup.
      * If you decide to keep some attributes in the SVGO options, you should check the svg content
      * and possibly modify the function accordingly.
+     *
+     * NB: this release doesn't include any prettify feature.
      */
     icon_builder: function (parsed_svg) {
-      const className = [
-          ...(parsed_svg.type_class? [parsed_svg.type_class] : []),
-          ...(parsed_svg.aspect_ratio_class? [parsed_svg.aspect_ratio_class] : []),
-        ],
-        component_name = `${this.add_prefix}${parsed_svg.filename_camel_case}${this.add_suffix}`;
+      const component_name = `${this.add_prefix?? ''}${parsed_svg.filename_camel_case}${this.add_suffix?? ''}`;
 
       return {
         component_name: component_name,
         jsx_content: `export function ${component_name}() {
           return <svg viewBox="${parsed_svg.viewbox}"
             role="img"
-            ${className.length? `className="${className.join(' ')}"` : ''}
+            ${parsed_svg.classes.length? `className="${parsed_svg.classes.join(' ')}"` : ''}
             xmlns="http://www.w3.org/2000/svg"
           >
-            ${parsed_svg.content}
+            ${parsed_svg.svg_content}
           </svg>;
         }`
       };
@@ -120,19 +107,8 @@ const config = {
      * Leave empty  or remove the whole `optimize` obj if you don't need this feature
      */
     source_folders: {
-      fill: ['svg-src-fill'],
-      stroke: ['svg-src-stroke']
-    },
-
-    /**
-     * Icon type classes
-     *
-     * Optional classes to be added to fill and or stroke icons
-     * leave empty or remove if you don't need them
-     */
-    icon_type_class: {
-      fill: 'fill-icon',
-      stroke: 'stroke-icon'
+      fill: ['./svg-sources/fill-icons', './svg-sources/no-square-icons'],
+      stroke: ['./svg-sources/stroke-icons']
     },
 
     /* path to the folder where the optimized files will be saved */
@@ -152,8 +128,17 @@ const config = {
      * Every file with svg extension in these folders will be processed
      * Sub dirs are ignored.
      * Leave empty  or remove the whole `symbols` obj if you don't need this feature
+     *
+     * NB: stroke and fill icons are handled by adding some classes to the `symbol` tag.
+     * The same goes for non-square icons.
+     * Adding classes to the `symbol` tag is useful for styling icons with css,
+     * but it is not a well documented feature and may not work as expected in all browsers.
+     * Be aware of this if you plan to use this feature.
      */
-    source_folders: ['svg-src-fill', 'svg-src-stroke'],
+    source_folders: {
+      fill: ['./svg-sources/fill-icons'],
+      stroke: ['./svg-sources/stroke-icons']
+    },
 
     /* path of the processed svg file */
     dest_file: './demo-output/icons-as-symbols.svg',
@@ -288,6 +273,23 @@ const config = {
   },
 
   /**
+     * Icon type classes
+     *
+     * Optional classes to be added to fill and or stroke icons
+     * leave empty or remove if you don't need them
+     *
+     * @example
+     * icon_type_class: {
+     *   fill: 'fill-icons',
+     *   stroke: 'stroke-icons',
+     * },
+     */
+  icon_type_class: {
+    fill: 'fill-icon',
+    stroke: 'stroke-icon'
+  },
+
+  /**
    * Non-square icons classes
    *
    * Assign specific classes to non-square icons.
@@ -303,7 +305,8 @@ const config = {
    * If you don't want to use this feature, remove the `non_square_icons_classes`
    * array or leave it empty
    *
-   * NB: not available for `symbols` feature
+   * NB: Although aspect-ratio classes are added to `symbol` tags, this functionality
+   * is not supported in SVGs with that element type.
    *
    * @example
    * non_square_icons_classes: [
@@ -312,7 +315,33 @@ const config = {
    *   [ 2/3, 'icon-2-3'],
    * ],
    */
-  non_square_icons_classes: [],
+  non_square_icons_classes: [
+    [ 3/4, 'icon-3-4'],
+    [ 3/5, 'icon-3-5'],
+    [ 2/3, 'icon-2-3'],
+  ],
+
+  /**
+   * Console colors
+   *
+   * Colors for console output as defined in <https://nodejs.org/api/util.html#customizing-utilinspect-colors>
+   * The default colors work well on dark background terminals, if you have a light background terminal, you may
+   * need to change the colors.
+   */
+  /**
+   * Console colors
+   *
+   * Colors for console output as defined in <https://nodejs.org/api/util.html#customizing-utilinspect-colors>
+   * The default colors work well on dark background terminals, if you have a light background terminal, you may
+   * need to change the colors.
+   */
+  console_colors: {
+    error    : 'bgRed',
+    warning  : 'red',
+    success  : 'bgGreen',
+    info     : 'yellow',
+    infoDim  : ['yellow', 'dim'],
+  },
 
 
   /**
@@ -332,9 +361,9 @@ const config = {
      * and parts removed as per the `remove_prefix` parameter.
      */
     files: [
-      './svg-src-stroke/heroicons-outline-adjustments-vertical.svg',
-      './svg-src-fill/phosphoricons-airplane-tilt.svg',
-      './svg-src-fill/this-file-doesnt-exist.svg',
+      './svg-sources/fill-icons/phosphoricons-airplane-tilt.svg',
+      './svg-sources/fill-icons/phosphoricons-beer-stein-duotone.svg',
+      './svg-sources/fill-icons/this-file-doesnt-exist.svg',
     ],
 
     /* if true, the svg files are converted to data urls */

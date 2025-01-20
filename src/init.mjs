@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 // import process from 'process';
 
-import { printLine, printSuccess } from './print-result.mjs';
+import { printResult } from './print-result.mjs';
 import { homedir_path_to_tilde } from './homedir-path-to-tilde.mjs';
 
 export function init(work_dir) {
@@ -32,7 +32,7 @@ export function init(work_dir) {
     target_demo_file
   );
 
-  printSuccess('SVG-ICONS-TOOLS');
-  printLine('Created config file: ' + homedir_path_to_tilde(cfg_file));
-  printLine('Created symbols demo file: ' + homedir_path_to_tilde(target_demo_file) + '\n\n');
+  printResult('SVG-ICONS-TOOLS', 'success');
+  printResult('Created config file: ' + homedir_path_to_tilde(cfg_file));
+  printResult('Created symbols demo file: ' + homedir_path_to_tilde(target_demo_file) + '\n\n');
 }

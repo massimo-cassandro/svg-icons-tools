@@ -2,7 +2,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { configManager } from './config-manager.mjs';
 import { parseSvgFiles } from './parse-svg-files.mjs';
-import { printLine } from './print-result.mjs';
+import { printResult } from './print-result.mjs';
 import { homedir_path_to_tilde } from './homedir-path-to-tilde.mjs';
 
 export function svg_to_optimized() {
@@ -30,15 +30,15 @@ export function svg_to_optimized() {
     );
 
     if(fileCount) {
-      printLine(`\nSVG to optimized: ${fileCount} SVG files processed`);
-      printLine(`Optimized files copied to ${homedir_path_to_tilde(dest_folder)}`, true);
+      printResult(`\nSVG to optimized: ${fileCount} SVG files processed`);
+      printResult(`Optimized files copied to ${homedir_path_to_tilde(dest_folder)}`, 'infoDim');
 
     } else {
-      printLine('\nSVG to optimized: no files processed', true);
+      printResult('\nSVG to optimized: no files processed', 'infoDim');
     }
 
   } else {
-    printLine('\nSVG to optimized: no files processed', true);
+    printResult('\nSVG to optimized: no files processed', 'infoDim');
   }
 
 }

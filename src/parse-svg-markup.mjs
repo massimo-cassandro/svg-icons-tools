@@ -14,7 +14,8 @@ export function parseSvgMarkup(filepath, type_class = null) {
     svgString = svgString.replace(pallet, '');
   });
 
-  const optimized = optimize(svgString, cfg.svgo_config);
+  const optimized = optimize(svgString, cfg.svgo_config),
+    classes = type_class? [type_class] : [];
 
   // extracting viewbox
   const viewbox = optimized.data.match(/viewBox=(?:"|')(\d+ \d+ \d+ \d+)(?:"|')/mi)[1];
@@ -31,38 +32,39 @@ export function parseSvgMarkup(filepath, type_class = null) {
   });
 
   // non-square icons
-  let aspect_ratio_class = null;
   if(cfg.non_square_icons_classes.length ) {
 
-    const round = (w, h) => Math.round(w / h * 100) / 100
+    const getAspectRatio = (w, h) => Math.round(w / h * 100) / 100
       ,[,,width, height] = viewbox.split(' ')
     ;
 
     if(width !== height) {
-      const aspect_ratio = round(+width, +height);
+      const aspect_ratio = getAspectRatio(+width, +height);
 
-      const aspect_ratio_class_idx = cfg.non_square_icons_classes.map(i => round(i[0])).reduce((prev, curr, idx) => {
+      const aspect_ratio_class_idx = cfg.non_square_icons_classes.map(i => getAspectRatio(i[0])).reduce((prev, curr, idx) => {
         curr = idx;
         const prev_value = prev !== null? cfg.non_square_icons_classes[prev][0] : 0;
         return Math.abs(cfg.non_square_icons_classes[curr][0] - aspect_ratio) < Math.abs(prev_value - aspect_ratio) ? curr : prev;
       }, null);
 
-      aspect_ratio_class = cfg.non_square_icons_classes[aspect_ratio_class_idx][1];
+      classes.push(cfg.non_square_icons_classes[aspect_ratio_class_idx][1]);
 
     }
   }
 
-  // aspect ratio class and extra_class are immediately assigned to the optimized svg markup
-  if(aspect_ratio_class || type_class) {
-    const classes = [
-      ...(aspect_ratio_class? [aspect_ratio_class] : []),
-      ...(type_class? [type_class] : []),
-    ];
+
+  // extra classes are immediately assigned to the optimized svg markup
+  if(classes.length) {
     optimized.data = optimized.data.replace(/<svg/, `<svg class="${classes.join(' ')}"`);
   }
 
   // get svg content
-  const content = optimized.data.match(/<svg(?:.*?)>(.*?)<\/svg>/mi)[1];
+  const svg_content = optimized.data.match(/<svg(?:.*?)>(.*?)<\/svg>/mi)[1];
 
-  return {svg: optimized.data, viewbox: viewbox, content: content, aspect_ratio_class: aspect_ratio_class, type_class: type_class};
+  return {
+    svg: optimized.data,
+    viewbox: viewbox,
+    svg_content: svg_content,
+    classes: classes
+  };
 }

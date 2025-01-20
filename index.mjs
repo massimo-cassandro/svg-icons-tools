@@ -8,7 +8,7 @@ import { homedir_path_to_tilde } from './src/homedir-path-to-tilde.mjs';
 import default_config from './src/default-config.mjs';
 import { configManager } from './src/config-manager.mjs';
 import { start } from './src/start.mjs';
-import { printError } from './src/print-result.mjs';
+import { printResult } from './src/print-result.mjs';
 
 try {
 
@@ -47,5 +47,5 @@ try {
   }
 
 } catch(err) {
-  printError(err);
+  printResult(err, 'error');
 }

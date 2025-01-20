@@ -2,7 +2,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { configManager } from './config-manager.mjs';
 import { parseSvgFiles } from './parse-svg-files.mjs';
-import { printLine } from './print-result.mjs';
+import { printResult } from './print-result.mjs';
 import { homedir_path_to_tilde } from './homedir-path-to-tilde.mjs';
 
 export function svg_to_symbols() {
@@ -12,12 +12,12 @@ export function svg_to_symbols() {
 
   fileCount = parseSvgFiles('symbols',
     (parsedSvg) => {
-      symbols_str += `<symbol id="${parsedSvg.filename}" viewBox="${parsedSvg.viewbox}">${parsedSvg.content}</symbol>`;
+      symbols_str += `<symbol id="${parsedSvg.filename}" viewBox="${parsedSvg.viewbox}"`+
+        (parsedSvg.classes.length? ` class="${parsedSvg.classes.join(' ')}"` : '') +
+        `>${parsedSvg.svg_content}</symbol>`;
       icons_list.push(parsedSvg.filename);
     }
   );
-
-  // TODO aspect ratio e duotone classes (queste ultime forse già ci sono)
 
   // symbols store
   if (symbols_str) {
@@ -33,10 +33,10 @@ export function svg_to_symbols() {
     }
     fs.writeFileSync(path.resolve(cfg.work_dir, cfg.symbols.dest_file), symbols_str);
 
-    printLine(`\nSVG to symbols: ${fileCount} SVG files processed`);
+    printResult(`\nSVG to symbols: ${fileCount} SVG files processed`);
 
   } else {
-    printLine('\nSVG to symbols: no files processed', true);
+    printResult('\nSVG to symbols: no files processed', 'infoDim');
   }
 
 
@@ -49,7 +49,7 @@ export function svg_to_symbols() {
       'export ' + icon_list_var_string
     );
 
-    printLine(`Created icon list file: ${homedir_path_to_tilde(cfg.symbols.icons_list_file)}`, true);
+    printResult(`Created icon list file: ${homedir_path_to_tilde(cfg.symbols.icons_list_file)}`, 'infoDim');
   }
 
   // demo file
@@ -64,7 +64,7 @@ export function svg_to_symbols() {
       )
     );
 
-    printLine(`Created demo file: ${homedir_path_to_tilde(cfg.symbols.demo_tpl_path)}`, true);
+    printResult(`Created demo file: ${homedir_path_to_tilde(cfg.symbols.demo_tpl_path)}`, 'infoDim');
   }
 
 }

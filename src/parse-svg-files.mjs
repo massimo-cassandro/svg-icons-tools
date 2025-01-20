@@ -3,7 +3,7 @@ import * as path from 'path';
 import { parseSvgMarkup } from './parse-svg-markup.mjs';
 import { parseSvgFilename } from './parse-svg-filename.mjs';
 import { configManager } from './config-manager.mjs';
-import { printError } from './print-result.mjs';
+import { printResult } from './print-result.mjs';
 
 
 export function parseSvgFiles(parseModeKey, callback) {
@@ -23,7 +23,7 @@ export function parseSvgFiles(parseModeKey, callback) {
         if(file.endsWith('.svg')) {
 
           fileCount++;
-          const icon_type_class = svgType? cfg[parseModeKey]?.icon_type_class[svgType]?? null : null
+          const icon_type_class = svgType? cfg.icon_type_class?.[svgType]?? null : null
             ,filepath = path.resolve(folder, file),
             parsedSvg = parseSvgMarkup(filepath, icon_type_class);
 
@@ -49,6 +49,7 @@ export function parseSvgFiles(parseModeKey, callback) {
       throw new Error( `“${parseModeKey}” type is not mapped. It must be one of 'symbols', 'jsx' or 'optimize'` );
     }
 
+    // source_folders is an array and not an object? (not used in the current version)
     if(Array.isArray(cfg[parseModeKey].source_folders) ) {
 
       cfg[parseModeKey].source_folders.forEach(folder => {
@@ -74,6 +75,6 @@ export function parseSvgFiles(parseModeKey, callback) {
     return fileCount;
 
   } catch(e) {
-    printError( e );
+    printResult( e, 'error' );
   }
 }
