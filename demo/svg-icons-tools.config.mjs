@@ -47,10 +47,12 @@ const config = {
      *  - icon_type: icon type string: `fill` or `stroke`
      *  - filename: the name of the svg file without extension and with the `remove_prefix` strings removed
      *  - filename_camel_case: the filename in camel case (nb: dashes follewed ny numbers are converted to underscores)
+     *  - filename_pascal_case: similar to `filename_camel_case` but with the first letter capitalized
      *
      * The function must return an object with the following properties:
      *  - component_name: the name of the component
      *  - jsx_content: the jsx content of the component
+     *  - filename: the name of the jsx file (including extension) to be saved (default: `component_name` + '.jsx')
      *
      * Each jsx will be saved in a file named as `<component_name>.jsx` in the `dest_folder` folder
      *
@@ -65,16 +67,20 @@ const config = {
     icon_builder: function (parsed_svg) {
 
       // adding `Icon` suffix to the component name
-      const component_name = `${parsed_svg.filename_camel_case}Icon`;
+      const component_name = `${parsed_svg.filename_pascal_case}Icon`;
 
       return {
         component_name: component_name,
-        jsx_content: `export function ${component_name}() {
+        filename: `${component_name}.jsx`,
+        jsx_content: `export function ${component_name}({className, role, title, ...rest}) {
           return <svg viewBox="${parsed_svg.viewbox}"
-            role="img"
-            ${parsed_svg.classes.length? `className="${parsed_svg.classes.join(' ')}"` : ''}
+            role={role? role : 'image'}
+            aria-hidden={title? null : 'true'}
+            className={['icon', ${parsed_svg.classes.map(cls => `'${cls}'`)?? []}, ...(className? [className] : [])].join(' ') || null}
+            {...rest}
             xmlns="http://www.w3.org/2000/svg"
           >
+            {title && <title>{title}</title>}
             ${parsed_svg.svg_content}
           </svg>;
         }`
@@ -307,15 +313,15 @@ const config = {
    *
    * @example
    * non_square_icons_classes: [
-   *   [ 3/4, 'icon-3-4'],
-   *   [ 3/5, 'icon-3-5'],
-   *   [ 2/3, 'icon-2-3'],
+   *   [ 3/4, 'ratio-3x4'],
+   *   [ 3/5, 'ratio-3x5'],
+   *   [ 2/3, 'ratio-2x3'],
    * ],
    */
   non_square_icons_classes: [
-    [ 3/4, 'icon-3-4'],
-    [ 3/5, 'icon-3-5'],
-    [ 2/3, 'icon-2-3'],
+    [ 3/4, 'icon-3x4'],
+    [ 3/5, 'icon-3x5'],
+    [ 2/3, 'icon-2x3'],
   ],
 
   /**

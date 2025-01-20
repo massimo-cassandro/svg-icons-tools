@@ -23,7 +23,7 @@ try {
 
 
     if(process.argv.indexOf('--config') !== -1) {
-      config_file = process.argv[process.argv.indexOf('--config') + 1].trim();
+      config_file = path.resolve(process.cwd(), process.argv[process.argv.indexOf('--config') + 1].trim());
     }
 
     if(!config_file) {

@@ -31,6 +31,9 @@ export function parseSvgFiles(parseModeKey, callback) {
             .replace(/-([a-z])/g, (part) => part[1].toUpperCase())
             .replace(/-([0-9])/g, (part) => `_${part[1]}`);
 
+          parsedSvg.filename_pascal_case = parsedSvg.filename_camel_case.at(0).toUpperCase() +
+            parsedSvg.filename_camel_case.substring(1);
+
           callback(parsedSvg);
         }
       });

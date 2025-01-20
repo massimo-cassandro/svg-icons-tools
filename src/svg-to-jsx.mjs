@@ -28,7 +28,8 @@ export function svg_to_jsx() {
     fileCount = parseSvgFiles('jsx',
       (parsedSvg) => {
         const result = cfg_obj.icon_builder(parsedSvg),
-          dest_file_path = path.resolve(dest_folder, `${result.component_name}.jsx`);
+          dest_filename = result.filename?? `${result.component_name}.jsx`,
+          dest_file_path = path.resolve(dest_folder, dest_filename);
         fs.writeFileSync(dest_file_path, result.jsx_content);
         component_list.push({name: result.component_name, path: dest_file_path});
       }
@@ -47,10 +48,14 @@ export function svg_to_jsx() {
 
       const index_file_content = component_list.reduce((acc, component_obj) => {
         const relative_path = path.relative(path.dirname(index_file_path), component_obj.path);
-        return acc + `export { ${component_obj.name} } from '${relative_path}';\n`;
-      }, '');
+        acc.push(`export { ${component_obj.name} } from '${relative_path}';`);
+        return acc;
+      }, []);
 
-      fs.writeFileSync(index_file_path, index_file_content);
+      fs.writeFileSync(index_file_path,
+        '// Generated file\n\n' +
+        index_file_content.toSorted((a, b) => a.localeCompare(b)).join('\n')
+      );
     }
 
     if(fileCount) {

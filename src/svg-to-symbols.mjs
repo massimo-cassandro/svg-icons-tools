@@ -45,7 +45,7 @@ export function svg_to_symbols() {
   if(fileCount && cfg.symbols.icons_list_file) {
     fs.writeFileSync(path.resolve(cfg.work_dir, cfg.symbols.icons_list_file),
       '// List of icon symbols\n' +
-      '// NB: this file is dynamically generated, any changes will be overwritten\n\n' +
+      '// NB: this is a generated file, any changes will be overwritten\n\n' +
       'export ' + icon_list_var_string
     );
 

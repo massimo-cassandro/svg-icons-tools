@@ -42,6 +42,8 @@ To launch the script, open your terminal and use the command:
 npx iconsTools --config ./path/to/svg-icons-tools.config.mjs
 ```
 
+where `--config` must contain the path, relative to the current dir, to the config file.
+
 If the `--config` parameter is not set, the script will look for the configuration file in the current directory; if the file is not found, an error will be thrown.
 
 
@@ -56,4 +58,5 @@ See [demo/readme](demo/readme.md).
 ## TODO
 * documentation to jsdoc
 * prettify the jsx output (update docs)
-* SVG to jsx (upd doc)
+* SVG attributes to jsx (upd doc)
+* option to clean-up dest folder for jsx and optimized (?)
