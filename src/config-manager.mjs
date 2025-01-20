@@ -1,6 +1,9 @@
+import default_config from './default-config.mjs';
+
+
 export const configManager = {
 
-  cfgObj: {},
+  cfgObj: default_config,
 
   updCfg: function(cfg) {
     this.cfgObj = { ...this.cfgObj, ...cfg };

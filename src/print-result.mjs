@@ -8,7 +8,7 @@ import { configManager } from './config-manager.mjs';
 
 export function printResult(text, mode = 'info') {
   const cfg = configManager.getCfg()
-    ,style = typeof cfg.console_colors[mode] === 'string'? [cfg.console_colors[mode]] : cfg.console_colors[mode]
+    ,style = Array.isArray(cfg.console_colors[mode])? cfg.console_colors[mode] : [cfg.console_colors[mode]]
     ,isBg = style.reduce((acc, val) => acc || /^(bg)/.test(val), false)
   ;
 

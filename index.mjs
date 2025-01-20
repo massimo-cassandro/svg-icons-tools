@@ -5,7 +5,7 @@ import * as path from 'path';
 
 import { init } from './src/init.mjs';
 import { homedir_path_to_tilde } from './src/homedir-path-to-tilde.mjs';
-import default_config from './src/default-config.mjs';
+// import default_config from './src/default-config.mjs';
 import { configManager } from './src/config-manager.mjs';
 import { start } from './src/start.mjs';
 import { printResult } from './src/print-result.mjs';
@@ -39,7 +39,7 @@ try {
 
     import(config_file).then((custom_cfg) => {
 
-      configManager.updCfg({ ...default_config, ...custom_cfg.default, work_dir: work_dir});
+      configManager.updCfg({ ...custom_cfg.default, work_dir: work_dir});
 
       start();
     });
