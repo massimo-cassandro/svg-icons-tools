@@ -15,7 +15,7 @@ try {
   // init: creazione file cfg base
   if(process.argv.indexOf('init') !== -1) {
 
-    init(new URL('.', import.meta.url).pathname);
+    init(process.cwd());
 
   } else {
 

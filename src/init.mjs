@@ -8,7 +8,7 @@ import { homedir_path_to_tilde } from './homedir-path-to-tilde.mjs';
 
 export function init(work_dir) {
 
-  const current_dir = new URL('.', import.meta.url).pathname;
+  const source_dir = new URL('.', import.meta.url).pathname;
 
   // create dest dir
   const dest = path.join(work_dir, 'svg-icons-tools');
@@ -21,14 +21,14 @@ export function init(work_dir) {
   const cfg_file = path.join(dest, '/svg-icons-tools.config.mjs');
 
   fs.copyFileSync(
-    path.join(current_dir, '/default-config.mjs'),
+    path.join(source_dir, '/default-config.mjs'),
     cfg_file
   );
 
   // copy tpl file
   const target_demo_file =  path.join(dest, 'symbols-demo-tpl.html');
   fs.copyFileSync(
-    path.join(current_dir, 'symbols-demo-tpl.html'),
+    path.join(source_dir, 'symbols-demo-tpl.html'),
     target_demo_file
   );
 
