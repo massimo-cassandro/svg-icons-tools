@@ -23,7 +23,7 @@ export function svg_to_symbols() {
   if (symbols_str) {
     symbols_str = (cfg.symbols.add_xml_declaration? '<?xml version="1.0" encoding="UTF-8"?>' : '') +
       (cfg.symbols.add_svg_doctype? '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">' : '') +
-      '<svg xmlns="http://www.w3.org/2000/svg"' + (cfg.symbols.add_hidden_attribute? ' hidden' : '') + '>' +
+      '<svg xmlns="http://www.w3.org/2000/svg"' + (cfg.symbols.add_hidden_attribute? ' hidden="hidden"' : '') + '>' +
         symbols_str +
       '</svg>';
     const dest = path.resolve(cfg.work_dir, cfg.symbols.dest_file),
