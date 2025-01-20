@@ -5,3 +5,4 @@
 2025-01-20T10:27:42.028Z |            0.2.3 | JSX fixes
 2025-01-20T10:33:06.694Z |            0.2.4 | `varname_prefix` for svg to scss
 2025-01-20T15:29:28.691Z |            1.0.0 | First production release
+2025-01-20T16:13:51.871Z |            1.0.1 | Fix

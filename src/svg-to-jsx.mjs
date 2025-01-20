@@ -48,7 +48,7 @@ export function svg_to_jsx() {
 
       const index_file_content = component_list.reduce((acc, component_obj) => {
         const relative_path = path.relative(path.dirname(index_file_path), component_obj.path);
-        acc.push(`export { ${component_obj.name} } from '${relative_path}';`);
+        acc.push(`export { ${component_obj.name} } from './${relative_path}';`);
         return acc;
       }, []);
 
