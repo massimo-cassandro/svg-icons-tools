@@ -57,10 +57,11 @@ const config = {
      * Each jsx will be saved in a file named as `<component_name>.jsx` in the `dest_folder` folder
      *
      * NB: Since it is assumed that most attributes in the svg content have been removed
-     * during optimization, no further cleanup is performed and therefore it is not guaranteed
+     * during optimization, no further cleanup is performed in this version and therefore it is not guaranteed
      * that `parsed_svg.content` is valid JSX markup.
-     * If you decide to keep some attributes in the SVGO options, you should check the svg content
-     * and possibly modify the function accordingly.
+     * If you decide to keep some attributes in the SVGO options, you should check the svg content and, if possible,
+     * modify the function accordingly. In the function below, the `replace` method,
+     * applied to `parsed_svg.svg_content`, is an example of how to temporarily solve this problem.
      *
      * NB: this release doesn't include any prettify feature.
      */
@@ -81,7 +82,9 @@ const config = {
             xmlns="http://www.w3.org/2000/svg"
           >
             {title && <title>{title}</title>}
-            ${parsed_svg.svg_content}
+            ${parsed_svg.svg_content
+              .replace(/ class=/g, ' className=')
+              .replace(/ fill-rule=/g, ' fillRule=')}
           </svg>;
         }`
       };
