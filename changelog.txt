@@ -7,3 +7,4 @@
 2025-01-20T15:29:28.691Z |            1.0.0 | First production release
 2025-01-20T16:13:51.871Z |            1.0.1 | Fix
 2025-01-20T17:29:40.688Z |            1.0.2 | Fix hidden attribute on svg to symbol
+2025-01-23T10:45:46.178Z |            1.1.0 | Default JSX icon builder function

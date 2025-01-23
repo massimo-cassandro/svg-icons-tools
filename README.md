@@ -1,4 +1,4 @@
-# SVG ICONS TOOLS
+# Svg Icons Tools
 
 Svg Icons Tools provides some utilities for manage and optimize SVG icons:
 
@@ -60,3 +60,16 @@ See [demo/readme](demo/readme.md).
 * prettify the jsx output (update docs)
 * SVG attributes to jsx (upd doc)
 * option to clean-up dest folder for jsx and optimized (?)
+* auto changelog
+
+
+## Changelog / Breaking Changes
+
+### 1.1
+* added default jsx icon builder function
+
+#### Breaking Changes
+* in config file, `config.jsx.icon_builder` becomes `config.jsx.custom_icon_builder`, if not defined the default icon builder is used for jsx files.
+
+### 1.0
+* First production release

@@ -4,18 +4,21 @@ import { configManager } from './config-manager.mjs';
 import { parseSvgFiles } from './parse-svg-files.mjs';
 import { printResult } from './print-result.mjs';
 import { homedir_path_to_tilde } from './homedir-path-to-tilde.mjs';
-
+import { jsx_icon_file_builder } from './jsx-icon-file-builder.mjs';
 
 export function svg_to_jsx() {
 
   const cfg = configManager.getCfg(),
-    cfg_obj = cfg.jsx;
+    cfg_obj = cfg.jsx,
+    icon_builder = cfg_obj.custom_icon_builder && typeof cfg_obj.custom_icon_builder === 'function'?
+      cfg_obj.custom_icon_builder : jsx_icon_file_builder;
+
   let dest_folder = '', fileCount = 0, component_list = [];
 
   const source_folders_length = Object.keys(cfg_obj.source_folders)
     .reduce((acc, key) => acc + cfg_obj.source_folders[key].length, 0);
 
-  if (source_folders_length && cfg_obj.dest_folder && cfg_obj.icon_builder && typeof cfg_obj.icon_builder === 'function') {
+  if (source_folders_length && cfg_obj.dest_folder) {
 
     dest_folder = path.resolve(cfg.work_dir, cfg_obj.dest_folder);
 
@@ -27,7 +30,7 @@ export function svg_to_jsx() {
     // parsing and saving JSX files
     fileCount = parseSvgFiles('jsx',
       (parsedSvg) => {
-        const result = cfg_obj.icon_builder(parsedSvg),
+        const result = icon_builder(parsedSvg),
           dest_filename = result.filename?? `${result.component_name}.jsx`,
           dest_file_path = path.resolve(dest_folder, dest_filename);
         fs.writeFileSync(dest_file_path, result.jsx_content);
