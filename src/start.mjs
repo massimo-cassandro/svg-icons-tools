@@ -7,13 +7,13 @@ import { svg_to_scss } from './svg-to-scss.mjs';
 
 import { printResult } from './print-result.mjs';
 
-export function start() {
+export async function start() {
 
 
   printResult('SVG-ICONS-TOOLS start...');
 
-  svg_to_jsx();
-  svg_to_optimized();
+  await svg_to_jsx();
+  await svg_to_optimized();
   svg_to_symbols();
   svg_to_scss();
 

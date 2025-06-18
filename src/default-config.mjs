@@ -48,13 +48,19 @@ const config = {
     /* path to the folder where the jsx components will be saved */
     dest_folder: '',
 
-    /*
+    /**
+     * Clear dest_folder folder before save new files
+     */
+    clearDestFolder: false,
+
+
+    /**
      * path to jsx icons index file
      *
      * Optional file that contains all generated icons as named exports.
      * Leave empty o remove if you don't need it
      */
-    index_file: '',
+    index_file: ''
   },
 
   /**
@@ -74,6 +80,11 @@ const config = {
 
     /* path to the folder where the optimized files will be saved */
     dest_folder: '',
+
+    /**
+     * Clear dest_folder folder before save new files
+     */
+    clearDestFolder: false
   },
 
   /**

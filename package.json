@@ -1,6 +1,6 @@
 {
   "name": "@massimo-cassandro/svg-icons-tools",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Optimize svg iocns (with SVGO) and generate SVG symbols file, JSX etc.",
   "main": "index.mjs",
   "bin": {

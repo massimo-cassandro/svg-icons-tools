@@ -5,8 +5,9 @@ import { parseSvgFiles } from './parse-svg-files.mjs';
 import { printResult } from './print-result.mjs';
 import { homedir_path_to_tilde } from './homedir-path-to-tilde.mjs';
 import { jsx_icon_file_builder } from './jsx-icon-file-builder.mjs';
+import { create_dest_folder } from './create-dest-folder.mjs';
 
-export function svg_to_jsx() {
+export async function svg_to_jsx() {
 
   const cfg = configManager.getCfg(),
     cfg_obj = cfg.jsx,
@@ -23,9 +24,8 @@ export function svg_to_jsx() {
     dest_folder = path.resolve(cfg.work_dir, cfg_obj.dest_folder);
 
     // checking output dir for optimized svg files
-    if (!fs.existsSync(dest_folder)) {
-      fs.mkdirSync(dest_folder, {recursive: true});
-    }
+    await create_dest_folder(dest_folder, cfg_obj.clearDestFolder);
+
 
     // parsing and saving JSX files
     fileCount = parseSvgFiles('jsx',
