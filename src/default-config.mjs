@@ -119,7 +119,7 @@ const config = {
     add_xml_declaration: true,
 
     /* if true, the svg doctype (`<!DOCTYPE svg PUBLIC...`) is added to the resulting file */
-    add_svg_doctype: true,
+    add_svg_doctype: false,
 
     /* if true, the `hidden` attribute is added to the svg tag of the resulting file */
     add_hidden_attribute: true,

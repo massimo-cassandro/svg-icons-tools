@@ -22,15 +22,17 @@ export function parseSvgMarkup(filepath, svg_type) {
   const viewbox = optimized.data.match(/viewBox=(?:"|')(\d+ \d+ \d+ \d+)(?:"|')/mi)[1];
 
   // duotone classes
-  optimized.data = optimized.data.replace(/(?:fill-)?opacity=(?:'|")0?\.(\d+)(?:'|")/g, (match, p1) => {
-    const opacity_value = Math.round(+((p1 + '000').slice(0, 3)) / 100);
+  if(Object.keys(cfg.opacity_classes?? {}).length) {
+    optimized.data = optimized.data.replace(/(?:fill-)?opacity=(?:'|")0?\.(\d+)(?:'|")/g, (match, p1) => {
+      const opacity_value = Math.round(+((p1 + '000').slice(0, 3)) / 100);
 
-    var opacity_key = Object.keys(cfg.opacity_classes).reduce((prev, curr) => {
-      curr = +curr;
-      return (Math.abs(curr - opacity_value) < Math.abs(prev - opacity_value) ? curr : prev);
+      let opacity_key = Object.keys(cfg.opacity_classes).reduce((prev, curr) => {
+        curr = +curr;
+        return (Math.abs(curr - opacity_value) < Math.abs(prev - opacity_value) ? curr : prev);
+      });
+      return `class='${cfg.opacity_classes[opacity_key]}'`;
     });
-    return `class='${cfg.opacity_classes[opacity_key]}'`;
-  });
+  }
 
   // non-square icons
   if(cfg.non_square_icons_classes.length ) {
