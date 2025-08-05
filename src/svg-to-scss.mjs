@@ -52,10 +52,14 @@ export function svg_to_scss() {
 
     const dest = path.resolve(cfg.work_dir, cfg.svg_to_scss.scss_icons_file);
 
-    fs.writeFileSync(dest, svg_to_scss_array.join('\n'));
+    fs.writeFileSync(
+      dest,
+      '// Generated file, don\'t edit\n\n' +
+      svg_to_scss_array.join('\n')
+    );
 
     printResult(`\nSVG to scss variables: ${fileCount} SVG files processed`);
-    printResult(`\SCSS icons variables file saved to ${homedir_path_to_tilde(dest)}`, 'infoDim');
+    printResult(`\nSCSS icons variables file saved to ${homedir_path_to_tilde(dest)}`, 'infoDim');
     if(skipped) {
       printResult( `SVG to scss variables: ${skipped} SVG file${skipped > 1? 's were' : ' was'} not found`, 'warning' );
     }
