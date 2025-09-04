@@ -3,7 +3,7 @@ import { configManager } from './config-manager.mjs';
 import * as fs from 'fs';
 
 // https://svgo.dev/docs/introduction/
-export function parseSvgMarkup(filepath, svg_type) {
+export function parseSvgMarkup(filepath, svg_type, custom_svgo_config = null) {
   const cfg = configManager.getCfg();
 
   let svgString = fs.readFileSync(filepath, 'utf8');
@@ -14,7 +14,8 @@ export function parseSvgMarkup(filepath, svg_type) {
     svgString = svgString.replace(pallet, '');
   });
 
-  const optimized = optimize(svgString, cfg.svgo_config),
+  // if present, custom_svgo_config ovverrides cfg.svgo_config
+  const optimized = optimize(svgString, custom_svgo_config? custom_svgo_config : cfg.svgo_config),
     icon_type_class = svg_type? cfg.icon_type_class?.[svg_type]?? null : null,
     classes = icon_type_class? [icon_type_class] : [];
 

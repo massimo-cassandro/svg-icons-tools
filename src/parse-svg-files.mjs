@@ -8,7 +8,7 @@ import { printResult } from './print-result.mjs';
 
 export function parseSvgFiles(parseModeKey, callback) {
   /*
-    parseModeKey: one of 'symbols', 'jsx' or 'optimize'
+    parseModeKey: one of 'symbols', 'jsx' or 'optimize' (same keys of config obj)
   */
   const cfg = configManager.getCfg();
   let fileCount = 0;
@@ -24,7 +24,7 @@ export function parseSvgFiles(parseModeKey, callback) {
 
           fileCount++;
           const filepath = path.resolve(folder, file),
-            parsedSvg = parseSvgMarkup(filepath, svgType);
+            parsedSvg = parseSvgMarkup(filepath, svgType, cfg[parseModeKey].svgo_config);
 
           parsedSvg.filename = parseSvgFilename(file);
           parsedSvg.filename_camel_case = parsedSvg.filename

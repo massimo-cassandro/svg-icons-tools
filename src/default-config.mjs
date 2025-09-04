@@ -60,7 +60,10 @@ const config = {
      * Optional file that contains all generated icons as named exports.
      * Leave empty o remove if you don't need it
      */
-    index_file: ''
+    index_file: '',
+
+    /** if not null, overrides the global `svgo_config` */
+    svgo_config: null
   },
 
   /**
@@ -84,7 +87,10 @@ const config = {
     /**
      * Clear dest_folder folder before save new files
      */
-    clearDestFolder: false
+    clearDestFolder: false,
+
+    /** if not null, overrides the global `svgo_config` */
+    svgo_config: null
   },
 
   /**
@@ -159,6 +165,9 @@ const config = {
      * demo_file_path: './symbols-demo.html',
      */
     demo_file_path: '',
+
+    /** if not null, overrides the global `svgo_config` */
+    svgo_config: null
   },
 
 
