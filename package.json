@@ -1,6 +1,6 @@
 {
   "name": "@massimo-cassandro/svg-icons-tools",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Optimize svg iocns (with SVGO) and generate SVG symbols file, JSX etc.",
   "main": "index.mjs",
   "bin": {
@@ -39,14 +39,11 @@
     "index.mjs"
   ],
   "devDependencies": {
-    "@eslint/js": "^9.9.1",
-    "@massimo-cassandro/dev-updater": "^1.0.4",
-    "@massimo-cassandro/eslint-config": "^2.0.4",
-    "eslint": "^9.17.0",
-    "globals": "^15.14.0",
-    "jsdoc-to-markdown": "^9.1.1"
+    "@massimo-cassandro/dev-updater": "^3.0.6",
+    "@massimo-cassandro/eslint-config": "^3.0.9",
+    "jsdoc-to-markdown": "^9.1.3"
   },
   "dependencies": {
-    "svgo": "^3.3.2"
+    "svgo": "^4.0.1"
   }
 }
