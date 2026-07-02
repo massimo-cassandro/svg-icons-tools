@@ -1,5 +1,7 @@
 # Svg Icons Tools
 
+> This repository is no longer maintained, its contents have been merged into https://github.com/massimo-cassandro/minimo
+
 Svg Icons Tools provides some utilities for manage and optimize SVG icons:
 
 * optimize all files with [SVGO](https://svgo.dev/)
